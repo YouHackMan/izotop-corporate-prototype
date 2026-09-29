@@ -237,8 +237,14 @@
         document.body.classList.add('menu-open');
       }else close();
     };
-    menu.querySelectorAll('a').forEach(a=>a.onclick=()=>close(false));
-    document.onkeydown=e=>{if(e.key==='Escape')close()};
+    menu.querySelectorAll('a').forEach(a=>a.onclick=()=>close(a.getAttribute('href')===location.hash));
+    document.onkeydown=e=>{
+      if(e.key!=='Escape')return;
+      const mega=document.getElementById('services-mega'),megaButton=document.getElementById('mega-toggle'),dialog=document.getElementById('contact-modal');
+      if(mega&&!mega.hidden){mega.hidden=true;megaButton?.setAttribute('aria-expanded','false')}
+      close();
+      if(dialog?.open)dialog.close();
+    };
   }
 
   function notFound(){return `<main><section class="page-hero"><div class="page-hero-grid"></div><div class="container"><span class="eyebrow light">НАВИГАЦИЯ</span><h1>Страница не найдена</h1><p>Проверьте адрес или выберите нужное направление.</p><div class="hero-actions">${linkIcon('/','На главную','btn btn-light')}${linkIcon('/services','Все услуги','btn btn-outline')}</div></div></section></main>`}
