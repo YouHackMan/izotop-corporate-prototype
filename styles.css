@@ -168,7 +168,7 @@ p{color:var(--muted)}
 .faq details{border-bottom:1px solid var(--line);padding:0}
 .faq summary{display:flex;align-items:center;justify-content:space-between;gap:20px;list-style:none;cursor:pointer;font-size:16px;font-weight:800;padding:23px 5px}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary:after{content:"+";color:var(--blue);font-size:25px;font-weight:400}
+.faq summary:after{content:none}
 .faq details[open] summary:after{content:"−"}
 .faq details p{max-width:760px;padding:0 5px 23px;margin:0;font-size:14px}
 .final-cta{background:var(--navy);color:white;position:relative;overflow:hidden}
@@ -418,3 +418,35 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 @media(max-width:850px){.mega-groups{grid-template-columns:1fr}.mega-group{padding:21px 18px}.document-preview-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.partner-track{animation:none;width:100%;display:grid;grid-template-columns:repeat(2,1fr)}.partner-mark{width:auto;height:66px;padding:0 14px}.partner-mark i{right:9px;top:14px}.document-preview-grid{grid-template-columns:1fr 1fr}.document-window{height:180px;padding:8px}.document-paper{padding:22px 12px 10px}.document-paper small{left:12px;bottom:10px;font-size:7px}.document-card h3{font-size:13px}.document-card p{font-size:10px}.competence-route{grid-template-columns:1fr;padding:6px 0 6px 58px}.competence-route::before{display:block;left:18px;right:auto;top:22px;bottom:22px;width:1px;height:auto;background:rgba(121,224,255,.48)}.route-stop{min-height:112px;padding:22px 12px 18px 28px;border-bottom:1px solid rgba(255,255,255,.2)}.route-stop:last-child{border-bottom:0}.route-node{left:-58px;top:18px;width:38px;height:38px}.route-stop strong{font-size:15px}.route-stop small{font-size:12px}.site-header .brand-text small{font-size:6px;letter-spacing:.1em}.contact-messenger-buttons button{flex:1;justify-content:center;padding:10px 8px}.contact-messenger-buttons button .messenger-svg{width:19px}}
 @media(prefers-reduced-motion:reduce){.partner-track{animation:none}.partner-marquee{mask-image:none}}
+
+/* Focused refinement pass: contact map, stable route geometry, calmer placeholders and hover states. */
+.brand-text>strong{display:block;font-size:20px;letter-spacing:.01em;transform:scaleX(1.1);transform-origin:left center;white-space:nowrap}
+.brand-text small{letter-spacing:.2em}
+.topbar-right a:last-child{max-width:430px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:none}
+.mega-menu{max-height:calc(100vh - 86px);overflow-y:auto;overscroll-behavior:contain}
+.faq summary::after{content:none!important;display:none!important}
+.faq summary span{display:none!important}
+.section-pale .v3-related a,.section-white .v3-related a{color:var(--navy)}
+.section-pale .v3-related .mono,.section-white .v3-related .mono{color:var(--blue)}
+.section-pale .v3-related a,.section-white .v3-related a{border-color:var(--line)}
+.split>div:first-child>.link-arrow+.btn{margin-left:22px}
+.industry-grid-v3 article{transition:transform .3s ease,background-position .45s ease,box-shadow .3s ease}
+.industry-grid-v3 article:hover{transform:translateY(-6px);background-position:center 44%;box-shadow:0 16px 28px rgba(7,25,43,.16)}
+.partner-mark{display:block;width:188px;height:92px;margin:10px;padding:0;border:1px solid #c8d8e1;background:#f8fbfd;box-shadow:inset 0 0 0 6px rgba(255,255,255,.72);transition:background .25s ease,border-color .25s ease,transform .25s ease}
+.partner-mark:hover{background:#eef7fb;border-color:#8fcfe7;transform:translateY(-3px)}
+.partner-mark span,.partner-mark strong,.partner-mark i{display:none!important}
+.partner-track{align-items:center}
+.contact-map{position:relative;min-height:470px;overflow:hidden;background:#d7e8ef;border:1px solid #bfd2dc;isolation:isolate}
+.contact-map-grid{position:absolute;inset:0;background:linear-gradient(26deg,transparent 0 46%,rgba(255,255,255,.74) 46.2% 47%,transparent 47.2% 100%),linear-gradient(122deg,transparent 0 56%,rgba(255,255,255,.7) 56.2% 57%,transparent 57.2% 100%),linear-gradient(90deg,rgba(66,124,148,.08) 1px,transparent 1px),linear-gradient(rgba(66,124,148,.08) 1px,transparent 1px);background-size:auto,auto,54px 54px,54px 54px}
+.contact-map:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 62% 42%,rgba(121,224,255,.35),transparent 22%),linear-gradient(135deg,rgba(248,252,253,.1),rgba(57,118,143,.16));z-index:-1}
+.map-road{position:absolute;height:20px;background:rgba(255,255,255,.78);box-shadow:0 0 0 1px rgba(113,153,169,.15);transform:rotate(-18deg)}
+.map-road-a{width:120%;left:-10%;top:47%}.map-road-b{width:90%;right:-16%;top:18%;transform:rotate(42deg)}
+.map-pin{position:absolute;left:58%;top:39%;width:42px;height:42px;border-radius:50% 50% 50% 0;background:var(--blue);transform:rotate(-45deg);box-shadow:0 10px 18px rgba(25,82,145,.28)}
+.map-pin span{position:absolute;inset:11px;border-radius:50%;background:#fff}
+.contact-map-card{position:absolute;left:24px;right:24px;bottom:24px;padding:20px;background:rgba(255,255,255,.94);box-shadow:0 14px 30px rgba(20,64,83,.16);display:grid;gap:8px}
+.contact-map-card .mono{position:static;font-size:10px;color:var(--blue)}
+.contact-map-card strong{font-size:16px;color:var(--navy)}
+.contact-map-card a{display:inline-flex;align-items:center;gap:8px;width:max-content;margin-top:7px;color:var(--blue);font-size:12px;font-weight:800}
+.contact-map-card .ui-right{width:15px;height:15px}
+@media(min-width:1101px){.competence-route::before{left:10%;right:10%;top:75px}.competence-route .route-node{left:50%;top:56px;transform:translateX(-50%)}.competence-route .route-stop{padding-top:84px;text-align:left}}
+@media(max-width:600px){.brand-text>strong{font-size:18px;transform:none}.brand-text small{letter-spacing:.1em}.topbar-right a:last-child{max-width:240px}.split>div:first-child>.link-arrow+.btn{display:flex;width:max-content;margin:18px 0 0}.partner-mark{width:auto;height:66px;margin:7px}.contact-map{min-height:330px}.contact-map-card{left:14px;right:14px;bottom:14px;padding:15px}.contact-map-card strong{font-size:13px}.map-pin{left:57%;top:32%;width:34px;height:34px}.map-pin span{inset:9px}}
