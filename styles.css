@@ -424,6 +424,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
   .menu-open .site-header{position:fixed;top:0;left:0;right:0}
   .menu-open .site-header::after{content:"";position:fixed;inset:var(--mobile-header-height,68px) 0 0;background:rgba(16,36,60,.68);z-index:60;pointer-events:none}
   .mobile-nav{top:var(--mobile-header-height,68px);bottom:auto;height:auto;max-height:calc(100dvh - var(--mobile-header-height,68px));overflow-x:hidden;overflow-y:auto;z-index:70}
+  .mobile-nav> a{display:flex;width:100%;min-height:60px;box-sizing:border-box;align-items:center;justify-content:center;padding:18px 24px;text-align:center;background:var(--white);border-bottom:1px solid var(--line);transition:background .2s ease,color .2s ease}
+  .mobile-nav> a:hover,.mobile-nav> a:focus-visible{background:var(--pale);color:var(--blue)}
+  .mobile-nav> a.mobile-home{background:var(--pale);color:var(--blue);border-top:1px solid #b9ddea}
+  .mobile-nav> a[href="#/about"],.mobile-nav> a[href="#/contacts"]{background:var(--blue);border-color:#1b56b0;color:var(--white)}
+  .mobile-nav> a[href="#/about"]:hover,.mobile-nav> a[href="#/about"]:focus-visible,.mobile-nav> a[href="#/contacts"]:hover,.mobile-nav> a[href="#/contacts"]:focus-visible{background:#174fa6;color:var(--white)}
+  .mobile-nav>details>summary{min-height:60px;justify-content:center;position:relative;padding:18px 48px;background:var(--white);transition:background .2s ease,color .2s ease}
+  .mobile-nav>details>summary span{position:absolute;right:24px}
+  .mobile-nav>details[open]>summary{background:var(--pale);color:var(--blue);border-bottom-color:#b9ddea}
   .mobile-nav>details>div{display:grid;grid-template-rows:0fr;min-height:0;overflow:hidden;padding-block:0;transition:grid-template-rows .28s ease,padding .28s ease}
   .mobile-nav>details[open]>div{grid-template-rows:1fr;padding-block:5px 18px}
   .mobile-nav>details>div>details{min-height:0;overflow:hidden}
