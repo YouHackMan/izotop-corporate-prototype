@@ -15,7 +15,7 @@
 
   const documentPreview=(title,category)=>`<article class="document-card"><div class="document-window"><div class="document-toolbar"><span></span><span></span><span></span></div><div class="document-paper"><i></i><b></b><em></em><em></em><em></em><small>ПРЕДПРОСМОТР ДОКУМЕНТА</small></div></div><span class="mono">${category}</span><h3>${title}</h3><p>Состав документа и реквизиты зависят от вида работы.</p></article>`;
   const partnerStrip=(note='Логотипы будут заменены после согласования списка организаций.')=>`<div class="partner-marquee"><div class="partner-track">${['01 / МЕД','02 / ПРОМ','03 / ЛАБ','04 / СТРОЙ','05 / ОРГ','06 / ИНЖ','07 / ТЕХ','08 / ПРОЕКТ','01 / МЕД','02 / ПРОМ','03 / ЛАБ','04 / СТРОЙ','05 / ОРГ','06 / ИНЖ','07 / ТЕХ','08 / ПРОЕКТ'].map((x,i)=>{const p=x.split(' / ');return `<div class="partner-mark"${i>=8?' aria-hidden="true"':''}><span>${p[0]}</span><strong>${p[1]}</strong><i></i></div>`}).join('')}</div></div><small class="partner-note">${note}</small>`;
-  const contactMap=()=>`<div class="contact-map" role="img" aria-label="Карта расположения: Москва, улица Маршала Тимошенко, дом 23, строение 2"><div class="contact-map-grid"></div><div class="map-road map-road-a"></div><div class="map-road map-road-b"></div><div class="map-pin"><span></span></div><div class="contact-map-card"><span class="mono">АДРЕС ОРГАНИЗАЦИИ</span><strong>Москва, ул. Маршала Тимошенко, 23, стр. 2</strong><a href="https://yandex.ru/maps/-/CXU8iI4V" target="_blank" rel="noreferrer">Открыть в Яндекс Картах ${rightIcon()}</a></div></div>`;
+  const contactMap=()=>`<div class="contact-map"><iframe title="Карта: Москва, улица Маршала Тимошенко, 23, строение 2" src="https://yandex.ru/map-widget/v1/?ll=37.400010%2C55.751873&z=17&pt=37.400010%2C55.751873%2Cpm2rdm" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><div class="contact-map-card"><span class="mono">АДРЕС ОРГАНИЗАЦИИ</span><strong>Москва, ул. Маршала Тимошенко, 23, стр. 2</strong><a href="https://yandex.ru/maps/-/CXU8iI4V" target="_blank" rel="noreferrer">Открыть в Яндекс Картах ${rightIcon()}</a></div></div>`;
 
   const megaGroups=[
     {key:'design',title:'Проектирование',desc:'Рентгеновские кабинеты, лаборатории и объекты с источниками излучения.',items:[['Рентгеновские кабинеты','/design/xray-cabinets'],['Испытательные лаборатории','/design/testing-laboratories'],['Радиационные объекты','/design/radiation-facilities']]},
@@ -125,6 +125,31 @@
 
   function polishRenderedPage(path){
     document.querySelectorAll('.faq summary span').forEach(node=>node.remove());
+    const modalHeadCopy=document.querySelector('.modal-head p');
+    if(modalHeadCopy)modalHeadCopy.textContent='Телефон и почта доступны сейчас; мессенджеры и форма пока показаны как прототип.';
+    document.querySelector('.modal-head')?.insertAdjacentHTML('beforeend','<div class="modal-direct-contact"><a href="tel:+74991413290">+7 (499) 141-32-90</a><a href="mailto:info@izotoprk.ru">info@izotoprk.ru</a></div>');
+    document.querySelectorAll('.messenger-grid button small').forEach(node=>node.textContent='Пока не подключён');
+    const modalNote=document.querySelector('.modal-note');
+    if(modalNote)modalNote.innerHTML='Это демонстрационная форма: данные не отправляются. Для связи позвоните <a href="tel:+74991413290">+7 (499) 141-32-90</a> или напишите на <a href="mailto:info@izotoprk.ru">info@izotoprk.ru</a>.';
+    const modalSubmit=document.querySelector('#contact-form button[type="submit"]');
+    if(modalSubmit)modalSubmit.innerHTML=`Проверить заполнение ${arrowIcon()}`;
+    const modalSuccessTitle=document.getElementById('modal-success-title');
+    if(modalSuccessTitle)modalSuccessTitle.textContent='Форма заполнена';
+    const modalSuccessText=document.querySelector('#modal-success p');
+    if(modalSuccessText)modalSuccessText.innerHTML='Заявка не отправлена: приём через сайт пока не подключён. Свяжитесь с нами по <a href="tel:+74991413290">телефону</a> или <a href="mailto:info@izotoprk.ru">почте</a>.';
+    if(serviceInfo[path]||secondaryInfo[path])document.querySelector('.showcase-intro [data-contact-open]')?.remove();
+    document.querySelectorAll('.v3-catalog .catalog-link-item p').forEach(node=>node.remove());
+    document.querySelectorAll('.service-row p,.catalog-heading>span,.mega-description').forEach(node=>{
+      node.textContent=node.textContent.replace('СЭЗ,','Санитарно-эпидемиологические заключения,');
+    });
+    if(path==='/idk'){
+      const intro=document.querySelector('.showcase-intro .lead');
+      if(intro)intro.textContent='Индивидуальный дозиметрический контроль (ИДК) — это организованный цикл наблюдения за дозой персонала: от списка сотрудников и выдачи дозиметров до обработки показаний и оформления результатов.';
+    }
+    if(path==='/metrology'){
+      const heading=document.querySelector('.showcase-intro h2');
+      if(heading)heading.textContent='От прибора к результату';
+    }
     const mapLink='https://yandex.ru/maps/-/CXU8iI4V';
     const address='Москва, ул. Маршала Тимошенко, 23, стр. 2';
     const addressLink=document.querySelector('.topbar-right a:last-child');
@@ -145,9 +170,44 @@
   }
 
   function setup(){const menu=document.getElementById('mobile-nav'),menuBtn=document.getElementById('menu-button'),mega=document.getElementById('services-mega'),megaBtn=document.getElementById('mega-toggle'),dlg=document.getElementById('contact-modal'),form=document.getElementById('contact-form'),success=document.getElementById('modal-success'),toast=document.getElementById('prototype-toast');if(!menu||!menuBtn||!mega||!megaBtn||!dlg||!form)return;const closeMenu=()=>{menu.classList.remove('open');menuBtn.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');document.body.classList.remove('menu-open')};menuBtn.onclick=()=>{const open=!menu.classList.contains('open');menu.classList.toggle('open',open);menuBtn.classList.toggle('open',open);menuBtn.setAttribute('aria-expanded',String(open));menuBtn.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');document.body.classList.toggle('menu-open',open)};menu.querySelectorAll('a').forEach(a=>a.onclick=closeMenu);const closeMega=()=>{mega.hidden=true;megaBtn.setAttribute('aria-expanded','false')};megaBtn.onclick=e=>{e.stopPropagation();mega.hidden=!mega.hidden;megaBtn.setAttribute('aria-expanded',String(!mega.hidden))};document.onclick=e=>{if(!mega.hidden&&!mega.contains(e.target)&&!megaBtn.contains(e.target))closeMega()};document.onkeydown=e=>{if(e.key==='Escape'){closeMega();closeMenu();if(dlg.open)dlg.close()}};document.querySelectorAll('[data-contact-open]').forEach(b=>b.onclick=()=>{const topic=b.dataset.contactTopic||'Общая консультация';form.reset();document.getElementById('modal-topic').textContent=topic;document.getElementById('modal-topic-input').value=topic;form.hidden=false;success.hidden=true;dlg.showModal();dlg.querySelector('input[name=name]').focus()});document.querySelectorAll('[data-modal-close]').forEach(b=>b.onclick=()=>dlg.close());dlg.onclick=e=>{if(e.target===dlg)dlg.close()};const showToast=(x,inside)=>{const target=inside?document.getElementById('modal-toast'):toast;target.textContent=`${x} будет доступен после согласования каналов связи.`;target.classList.add('visible');clearTimeout(target._timer);target._timer=setTimeout(()=>target.classList.remove('visible'),2800)};document.querySelectorAll('[data-messenger]').forEach(b=>b.onclick=()=>showToast(b.dataset.messenger,Boolean(b.closest('dialog'))));document.querySelectorAll('.contact-messenger-buttons a').forEach(a=>a.onclick=e=>{e.preventDefault();showToast(a.textContent.trim(),false)});form.onsubmit=e=>{e.preventDefault();form.hidden=true;success.hidden=false;document.getElementById('modal-success-title').focus()};let last=window.scrollY,scrollDebt=0;window.onscroll=()=>{const y=window.scrollY,delta=y-last;last=y;if(Math.abs(delta)<1)return;scrollDebt+=delta;if(Math.abs(scrollDebt)<12)return;const goingDown=scrollDebt>0;scrollDebt=0;document.body.classList.toggle('header-scrolled',y>36);document.body.classList.toggle('header-down',goingDown&&y>12);document.body.classList.toggle('header-up',!goingDown&&y>12);if(y<=12)document.body.classList.remove('header-down','header-up')};
+    document.querySelectorAll('[data-contact-open]').forEach(button=>{
+      if(button.dataset.modalTopHandler)return;
+      button.dataset.modalTopHandler='1';
+      button.addEventListener('click',()=>requestAnimationFrame(()=>{
+        dlg.querySelector('.modal-close').focus({preventScroll:true});
+        dlg.scrollTop=0;
+      }));
+    });
+    // Collapsing the top bar changes layout and can emit a reverse scroll event.
+    let previousY=window.scrollY,scrollIntent=0,settleUntil=0,lastDirection=0,userDirection=0,userIntentUntil=0,touchY=0;
+    const markUserIntent=direction=>{if(!direction)return;userDirection=Math.sign(direction);userIntentUntil=performance.now()+500};
+    window.onwheel=e=>markUserIntent(e.deltaY);
+    window.ontouchstart=e=>{touchY=e.touches[0]?.clientY||0};
+    window.ontouchmove=e=>{const nextY=e.touches[0]?.clientY||touchY;markUserIntent(touchY-nextY);touchY=nextY};
+    window.onscroll=()=>{
+      const y=window.scrollY,delta=y-previousY;
+      previousY=y;
+      document.body.classList.toggle('header-scrolled',y>36);
+      if(y<=12){document.body.classList.remove('header-down','header-up');scrollIntent=0;return}
+      if(Math.abs(delta)<2)return;
+      const now=performance.now();
+      if(now<settleUntil&&Math.abs(delta)<=40&&Math.sign(delta)!==lastDirection&&!(now<userIntentUntil&&userDirection===Math.sign(delta)))return;
+      scrollIntent+=delta;
+      if(Math.abs(scrollIntent)<18)return;
+      const goingDown=scrollIntent>0;
+      scrollIntent=0;
+      const nextClass=goingDown?'header-down':'header-up';
+      if(!document.body.classList.contains(nextClass)){
+        document.body.classList.toggle('header-down',goingDown);
+        document.body.classList.toggle('header-up',!goingDown);
+        lastDirection=goingDown?1:-1;
+        settleUntil=now+350;
+      }
+    };
   }
 
-  function renderV3(){const requested=location.hash.slice(1)||'/',path=routes[requested]?requested:'/';document.title=`${routes[path]} — Изотоп РК`;document.getElementById('app').innerHTML=header(path)+getPage(path)+footer()+modal();const main=document.querySelector('main');if(main){main.id='main-content';main.tabIndex=-1}refineRenderedPage(path);setup();if(main)main.focus({preventScroll:true});setTimeout(setup,0)}
+  function notFound(){return `<main><section class="page-hero"><div class="page-hero-grid"></div><div class="container"><span class="eyebrow light">НАВИГАЦИЯ</span><h1>Страница не найдена</h1><p>Проверьте адрес или выберите нужное направление.</p><div class="hero-actions">${linkIcon('/','На главную','btn btn-light')}${linkIcon('/services','Все услуги','btn btn-outline')}</div></div></section></main>`}
+  function renderV3(){const requested=location.hash.slice(1)||'/',known=Object.hasOwn(routes,requested),path=known?requested:'/';document.title=`${known?routes[path]:'Страница не найдена'} — Изотоп РК`;document.getElementById('app').innerHTML=header(path)+(known?getPage(path):notFound())+footer()+modal();const main=document.querySelector('main');if(main){main.id='main-content';main.tabIndex=-1}refineRenderedPage(path);setup();if(main)main.focus({preventScroll:true})}
   function getPage(path){if(path==='/')return home();if(path==='/services')return services();if(path==='/about')return aboutV3();if(path==='/contacts')return contactsV3();if(path==='/delivery'||serviceInfo[path]||secondaryInfo[path])return servicePageV3(path);return servicePageV3(path)}
-  window.addEventListener('hashchange',renderV3);window.addEventListener('load',()=>setTimeout(renderV3,0));setTimeout(renderV3,0);
+  window.addEventListener('hashchange',()=>{renderV3();window.scrollTo(0,0)});window.addEventListener('load',()=>setTimeout(renderV3,0));setTimeout(renderV3,0);
 })();
