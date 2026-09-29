@@ -450,3 +450,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 .contact-map-card .ui-right{width:15px;height:15px}
 @media(min-width:1101px){.competence-route::before{left:10%;right:10%;top:75px}.competence-route .route-node{left:50%;top:56px;transform:translateX(-50%)}.competence-route .route-stop{padding-top:84px;text-align:left}}
 @media(max-width:600px){.brand-text>strong{font-size:18px;transform:none}.brand-text small{letter-spacing:.1em}.topbar-right a:last-child{max-width:240px}.split>div:first-child>.link-arrow+.btn{display:flex;width:max-content;margin:18px 0 0}.partner-mark{width:auto;height:66px;margin:7px}.contact-map{min-height:330px}.contact-map-card{left:14px;right:14px;bottom:14px;padding:15px}.contact-map-card strong{font-size:13px}.map-pin{left:57%;top:32%;width:34px;height:34px}.map-pin span{inset:9px}}
+
+.dark-info-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid rgba(255,255,255,.24)}
+.dark-info-list>div{display:grid;grid-template-columns:42px 1fr;gap:16px;min-height:142px;padding:24px 22px;border-right:1px solid rgba(255,255,255,.2);border-bottom:1px solid rgba(255,255,255,.2);transition:background .25s ease,transform .25s ease}
+.dark-info-list>div:nth-child(2n){border-right:0}
+.dark-info-list>div:hover{background:rgba(121,224,255,.08);transform:translateY(-2px)}
+.dark-info-list .mono{padding-top:2px;color:var(--cyan)}
+.dark-info-list p{margin:0;color:#d3e1e8;font-size:15px;line-height:1.45}
+.faq-list{max-width:1040px;border-top:1px solid var(--line)}
+.faq-list details{border-bottom:1px solid var(--line)}
+.faq-list summary{display:block;list-style:none;cursor:pointer;padding:28px 12px;font-size:18px;font-weight:800;line-height:1.4;transition:color .2s ease,background .2s ease}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary:hover{color:var(--blue);background:#f4f9fb}
+.faq-list details[open] summary{color:var(--blue)}
+.faq-list details p{max-width:800px;margin:0;padding:0 12px 28px;font-size:14px;line-height:1.65;color:#607589}
+@media(max-width:600px){.dark-info-list{grid-template-columns:1fr}.dark-info-list>div{border-right:0;min-height:112px}.dark-info-list p{font-size:14px}.faq-list summary{padding:23px 8px;font-size:16px}.faq-list details p{padding:0 8px 23px}}
