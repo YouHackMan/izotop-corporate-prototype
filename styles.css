@@ -585,6 +585,7 @@ h1,h2,h3{overflow-wrap:normal;word-break:normal;text-wrap:balance}
 .modal-note{font-size:13px;line-height:1.5}
 .modal-direct-contact{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px}
 .modal-direct-contact a{color:var(--blue);font-size:13px;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.contact-modal{overflow-x:hidden}
 .modal-note a,.modal-success p a{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-offset:2px}
 @media(max-width:850px){
   .v3-catalog .catalog-group{grid-template-columns:40px minmax(0,1fr);gap:12px;min-height:0}
