@@ -169,7 +169,7 @@
     document.querySelectorAll(`a[href="#${path}"]`).forEach(link=>link.addEventListener('click',()=>setTimeout(()=>window.scrollTo({top:0,behavior:'smooth'}),0),{once:true}));
   }
 
-  function setup(){const menu=document.getElementById('mobile-nav'),menuBtn=document.getElementById('menu-button'),mega=document.getElementById('services-mega'),megaBtn=document.getElementById('mega-toggle'),dlg=document.getElementById('contact-modal'),form=document.getElementById('contact-form'),success=document.getElementById('modal-success'),toast=document.getElementById('prototype-toast');if(!menu||!menuBtn||!mega||!megaBtn||!dlg||!form)return;const closeMenu=()=>{menu.classList.remove('open');menuBtn.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');document.body.classList.remove('menu-open')};menuBtn.onclick=()=>{const open=!menu.classList.contains('open');menu.classList.toggle('open',open);menuBtn.classList.toggle('open',open);menuBtn.setAttribute('aria-expanded',String(open));menuBtn.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');document.body.classList.toggle('menu-open',open)};menu.querySelectorAll('a').forEach(a=>a.onclick=closeMenu);const closeMega=()=>{mega.hidden=true;megaBtn.setAttribute('aria-expanded','false')};megaBtn.onclick=e=>{e.stopPropagation();mega.hidden=!mega.hidden;megaBtn.setAttribute('aria-expanded',String(!mega.hidden))};document.onclick=e=>{if(!mega.hidden&&!mega.contains(e.target)&&!megaBtn.contains(e.target))closeMega()};document.onkeydown=e=>{if(e.key==='Escape'){closeMega();closeMenu();if(dlg.open)dlg.close()}};document.querySelectorAll('[data-contact-open]').forEach(b=>b.onclick=()=>{const topic=b.dataset.contactTopic||'Общая консультация';form.reset();document.getElementById('modal-topic').textContent=topic;document.getElementById('modal-topic-input').value=topic;form.hidden=false;success.hidden=true;dlg.showModal();dlg.querySelector('input[name=name]').focus()});document.querySelectorAll('[data-modal-close]').forEach(b=>b.onclick=()=>dlg.close());dlg.onclick=e=>{if(e.target===dlg)dlg.close()};const showToast=(x,inside)=>{const target=inside?document.getElementById('modal-toast'):toast;target.textContent=`${x} будет доступен после согласования каналов связи.`;target.classList.add('visible');clearTimeout(target._timer);target._timer=setTimeout(()=>target.classList.remove('visible'),2800)};document.querySelectorAll('[data-messenger]').forEach(b=>b.onclick=()=>showToast(b.dataset.messenger,Boolean(b.closest('dialog'))));document.querySelectorAll('.contact-messenger-buttons a').forEach(a=>a.onclick=e=>{e.preventDefault();showToast(a.textContent.trim(),false)});form.onsubmit=e=>{e.preventDefault();form.hidden=true;success.hidden=false;document.getElementById('modal-success-title').focus()};let last=window.scrollY,scrollDebt=0;window.onscroll=()=>{const y=window.scrollY,delta=y-last;last=y;if(Math.abs(delta)<1)return;scrollDebt+=delta;if(Math.abs(scrollDebt)<12)return;const goingDown=scrollDebt>0;scrollDebt=0;document.body.classList.toggle('header-scrolled',y>36);document.body.classList.toggle('header-down',goingDown&&y>12);document.body.classList.toggle('header-up',!goingDown&&y>12);if(y<=12)document.body.classList.remove('header-down','header-up')};
+  function setup(){const menu=document.getElementById('mobile-nav'),menuBtn=document.getElementById('menu-button'),mega=document.getElementById('services-mega'),megaBtn=document.getElementById('mega-toggle'),dlg=document.getElementById('contact-modal'),form=document.getElementById('contact-form'),success=document.getElementById('modal-success'),toast=document.getElementById('prototype-toast');if(!menu||!menuBtn||!mega||!megaBtn||!dlg||!form)return;let menuScrollY=window.scrollY;const unlockPage=()=>{document.body.style.position='';document.body.style.top='';document.body.style.left='';document.body.style.right='';document.body.style.width=''};const closeMenu=()=>{menu.classList.remove('open');menuBtn.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-label','Открыть меню');document.body.classList.remove('menu-open');unlockPage();requestAnimationFrame(()=>window.scrollTo({top:menuScrollY,behavior:'auto'}))};menuBtn.onclick=()=>{const open=!menu.classList.contains('open');if(open){menuScrollY=window.scrollY;document.body.style.position='fixed';document.body.style.top=`-${menuScrollY}px`;document.body.style.left='0';document.body.style.right='0';document.body.style.width='100%'}menu.classList.toggle('open',open);menuBtn.classList.toggle('open',open);menuBtn.setAttribute('aria-expanded',String(open));menuBtn.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');document.body.classList.toggle('menu-open',open);if(!open)closeMenu()};menu.querySelectorAll('a').forEach(a=>a.onclick=closeMenu);const closeMega=()=>{mega.hidden=true;megaBtn.setAttribute('aria-expanded','false')};megaBtn.onclick=e=>{e.stopPropagation();mega.hidden=!mega.hidden;megaBtn.setAttribute('aria-expanded',String(!mega.hidden))};document.onclick=e=>{if(!mega.hidden&&!mega.contains(e.target)&&!megaBtn.contains(e.target))closeMega()};document.onkeydown=e=>{if(e.key==='Escape'){closeMega();closeMenu();if(dlg.open)dlg.close()}};document.querySelectorAll('[data-contact-open]').forEach(b=>b.onclick=()=>{const topic=b.dataset.contactTopic||'Общая консультация';form.reset();document.getElementById('modal-topic').textContent=topic;document.getElementById('modal-topic-input').value=topic;form.hidden=false;success.hidden=true;dlg.showModal();dlg.querySelector('input[name=name]').focus()});document.querySelectorAll('[data-modal-close]').forEach(b=>b.onclick=()=>dlg.close());dlg.onclick=e=>{if(e.target===dlg)dlg.close()};const showToast=(x,inside)=>{const target=inside?document.getElementById('modal-toast'):toast;target.textContent=`${x} будет доступен после согласования каналов связи.`;target.classList.add('visible');clearTimeout(target._timer);target._timer=setTimeout(()=>target.classList.remove('visible'),2800)};document.querySelectorAll('[data-messenger]').forEach(b=>b.onclick=()=>showToast(b.dataset.messenger,Boolean(b.closest('dialog'))));document.querySelectorAll('.contact-messenger-buttons a').forEach(a=>a.onclick=e=>{e.preventDefault();showToast(a.textContent.trim(),false)});form.onsubmit=e=>{e.preventDefault();form.hidden=true;success.hidden=false;document.getElementById('modal-success-title').focus()};let last=window.scrollY,scrollDebt=0;window.onscroll=()=>{const y=window.scrollY,delta=y-last;last=y;if(Math.abs(delta)<1)return;scrollDebt+=delta;if(Math.abs(scrollDebt)<12)return;const goingDown=scrollDebt>0;scrollDebt=0;document.body.classList.toggle('header-scrolled',y>36);document.body.classList.toggle('header-down',goingDown&&y>12);document.body.classList.toggle('header-up',!goingDown&&y>12);if(y<=12)document.body.classList.remove('header-down','header-up')};
     document.querySelectorAll('[data-contact-open]').forEach(button=>{
       if(button.dataset.modalTopHandler)return;
       button.dataset.modalTopHandler='1';
@@ -206,8 +206,44 @@
     };
   }
 
+  function stabilizeMobileMenu(){
+    const menu=document.getElementById('mobile-nav'),button=document.getElementById('menu-button');
+    if(!menu||!button||button.dataset.menuLockHandler)return;
+    button.dataset.menuLockHandler='1';
+    let savedScrollY=window.scrollY;
+    const unlock=()=>{document.body.style.position='';document.body.style.top='';document.body.style.left='';document.body.style.right='';document.body.style.width=''};
+    const close=(restore=true)=>{
+      menu.classList.remove('open');
+      button.classList.remove('open');
+      button.setAttribute('aria-expanded','false');
+      button.setAttribute('aria-label','Открыть меню');
+      document.body.classList.remove('menu-open');
+      unlock();
+      if(restore)requestAnimationFrame(()=>window.scrollTo({top:savedScrollY,behavior:'auto'}));
+    };
+    button.onclick=()=>{
+      const open=!menu.classList.contains('open');
+      if(open){
+        savedScrollY=window.scrollY;
+        document.body.style.position='fixed';
+        document.body.style.top=`-${savedScrollY}px`;
+        document.body.style.left='0';
+        document.body.style.right='0';
+        document.body.style.width='100%';
+        menu.classList.add('open');
+        button.classList.add('open');
+        button.setAttribute('aria-expanded','true');
+        button.setAttribute('aria-label','Закрыть меню');
+        document.body.classList.add('menu-open');
+      }else close();
+    };
+    menu.querySelectorAll('a').forEach(a=>a.onclick=()=>close(false));
+    document.onkeydown=e=>{if(e.key==='Escape')close()};
+  }
+
   function notFound(){return `<main><section class="page-hero"><div class="page-hero-grid"></div><div class="container"><span class="eyebrow light">НАВИГАЦИЯ</span><h1>Страница не найдена</h1><p>Проверьте адрес или выберите нужное направление.</p><div class="hero-actions">${linkIcon('/','На главную','btn btn-light')}${linkIcon('/services','Все услуги','btn btn-outline')}</div></div></section></main>`}
-  function renderV3(){const requested=location.hash.slice(1)||'/',known=Object.hasOwn(routes,requested),path=known?requested:'/';document.title=`${known?routes[path]:'Страница не найдена'} — Изотоп РК`;document.getElementById('app').innerHTML=header(path)+(known?getPage(path):notFound())+footer()+modal();const main=document.querySelector('main');if(main){main.id='main-content';main.tabIndex=-1}refineRenderedPage(path);setup();if(main)main.focus({preventScroll:true})}
+  function renderV3(){const requested=location.hash.slice(1)||'/',known=Object.hasOwn(routes,requested),path=known?requested:'/';document.title=`${known?routes[path]:'Страница не найдена'} — Изотоп РК`;document.getElementById('app').innerHTML=header(path)+(known?getPage(path):notFound())+footer()+modal();const main=document.querySelector('main');if(main){main.id='main-content';main.tabIndex=-1}refineRenderedPage(path);setup();stabilizeMobileMenu();if(main)main.focus({preventScroll:true})}
   function getPage(path){if(path==='/')return home();if(path==='/services')return services();if(path==='/about')return aboutV3();if(path==='/contacts')return contactsV3();if(path==='/delivery'||serviceInfo[path]||secondaryInfo[path])return servicePageV3(path);return servicePageV3(path)}
-  window.addEventListener('hashchange',()=>{renderV3();window.scrollTo(0,0)});window.addEventListener('load',()=>setTimeout(renderV3,0));setTimeout(renderV3,0);
+  window.addEventListener('hashchange',()=>{renderV3();window.scrollTo(0,0)});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',renderV3,{once:true});else renderV3();
 })();

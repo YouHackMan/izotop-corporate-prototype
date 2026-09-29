@@ -419,6 +419,19 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 @media(max-width:600px){.partner-track{animation:none;width:100%;display:grid;grid-template-columns:repeat(2,1fr)}.partner-mark{width:auto;height:66px;padding:0 14px}.partner-mark i{right:9px;top:14px}.document-preview-grid{grid-template-columns:1fr 1fr}.document-window{height:180px;padding:8px}.document-paper{padding:22px 12px 10px}.document-paper small{left:12px;bottom:10px;font-size:7px}.document-card h3{font-size:13px}.document-card p{font-size:10px}.competence-route{grid-template-columns:1fr;padding:6px 0 6px 58px}.competence-route::before{display:block;left:18px;right:auto;top:22px;bottom:22px;width:1px;height:auto;background:rgba(121,224,255,.48)}.route-stop{min-height:112px;padding:22px 12px 18px 28px;border-bottom:1px solid rgba(255,255,255,.2)}.route-stop:last-child{border-bottom:0}.route-node{left:-58px;top:18px;width:38px;height:38px}.route-stop strong{font-size:15px}.route-stop small{font-size:12px}.site-header .brand-text small{font-size:6px;letter-spacing:.1em}.contact-messenger-buttons button{flex:1;justify-content:center;padding:10px 8px}.contact-messenger-buttons button .messenger-svg{width:19px}}
 @media(prefers-reduced-motion:reduce){.partner-track{animation:none}.partner-marquee{mask-image:none}}
 
+/* Focused mobile menu composition: natural panel height, contained scroll, smooth services disclosure. */
+@media(max-width:850px){
+  .menu-open .site-header{position:fixed;top:0;left:0;right:0}
+  .menu-open .site-header::after{content:"";position:fixed;inset:var(--mobile-header-height,68px) 0 0;background:rgba(16,36,60,.68);z-index:60;pointer-events:none}
+  .mobile-nav{top:var(--mobile-header-height,68px);bottom:auto;height:auto;max-height:calc(100dvh - var(--mobile-header-height,68px));overflow-x:hidden;overflow-y:auto;z-index:70}
+  .mobile-nav>details>div{display:grid;grid-template-rows:0fr;min-height:0;overflow:hidden;padding-block:0;transition:grid-template-rows .28s ease,padding .28s ease}
+  .mobile-nav>details[open]>div{grid-template-rows:1fr;padding-block:5px 18px}
+  .mobile-nav>details>div>details{min-height:0;overflow:hidden}
+  .mobile-nav>details>div>details>summary{padding-block:18px}
+  .mobile-nav>details>div>details .mobile-link{padding-block:18px}
+  .mobile-nav .mobile-all-services{padding-block:22px 10px}
+}
+
 /* Focused refinement pass: contact map, stable route geometry, calmer placeholders and hover states. */
 .brand-text>strong{display:block;font-size:20px;letter-spacing:.01em;transform:scaleX(1.1);transform-origin:left center;white-space:nowrap}
 .brand-text small{letter-spacing:.2em}
