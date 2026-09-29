@@ -440,6 +440,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
   .mobile-nav .mobile-all-services{padding-block:22px 10px}
 }
 
+/* Keep the three mobile hero proof points in one stable vertical rhythm. */
+@media(max-width:600px){
+  .hero-bottom .container{min-height:0;grid-template-columns:1fr;padding-block:10px}
+  .hero-proof,.hero-proof:nth-child(3){display:block;grid-column:auto;padding:7px 0;border-right:0;border-bottom:1px solid #ffffff35}
+  .hero-proof:last-child{border-bottom:0}
+}
+
 /* Focused refinement pass: contact map, stable route geometry, calmer placeholders and hover states. */
 .brand-text>strong{display:block;font-size:20px;letter-spacing:.01em;transform:scaleX(1.1);transform-origin:left center;white-space:nowrap}
 .brand-text small{letter-spacing:.2em}
