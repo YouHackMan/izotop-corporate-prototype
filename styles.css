@@ -479,7 +479,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
   .mobile-nav>details>div>details>summary,
   .mobile-nav>details>div>details .mobile-link{
     padding-left:18px;
-    padding-right:18px;
+    padding-right:6px;
+  }
+  .mobile-nav>details>div>details>summary>span{
+    flex:0 0 auto;
+    margin-left:18px;
+    min-width:12px;
+    text-align:center;
   }
   .mobile-nav> a[href="#/about"],.mobile-nav> a[href="#/contacts"]{
     background:var(--pale);
