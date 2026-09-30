@@ -635,6 +635,61 @@ h1,h2,h3{overflow-wrap:normal;word-break:normal;text-wrap:balance}
   .home-hero h1{font-size:35px;line-height:1.13}
 }
 
+/* Desktop mega-menu: keep the full service map compact and make the main CTA
+   read as the clear next step without changing the mobile navigation. */
+@media (min-width:1280px){
+  .mega-menu{
+    max-height:calc(100vh - 76px);
+    overflow-y:auto;
+    scrollbar-color:var(--blue) var(--pale);
+    scrollbar-width:thin;
+  }
+  .mega-inner{
+    grid-template-columns:minmax(250px,.72fr) minmax(0,1.55fr);
+    gap:42px;
+    padding-block:24px 28px;
+  }
+  .mega-intro{padding-right:32px}
+  .mega-intro h2{font-size:28px;line-height:1.16;margin:13px 0 14px}
+  .mega-intro p{font-size:12px;line-height:1.45;margin-bottom:20px}
+  .mega-intro>.btn.btn-ghost{
+    width:100%;
+    min-height:54px;
+    justify-content:space-between;
+    padding-inline:18px;
+    background:var(--pale);
+    border-color:var(--blue);
+    color:var(--blue);
+    box-shadow:inset 0 -3px 0 rgba(42,105,202,.16);
+  }
+  .mega-intro>.btn.btn-ghost:hover{
+    background:var(--blue);
+    border-color:var(--blue);
+    color:#fff;
+    box-shadow:none;
+  }
+  .mega-groups{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .mega-group{padding:18px 20px 16px}
+  .mega-group.featured{padding:18px 20px}
+  .mega-title,.mega-group.featured .mega-title{font-size:17px!important;line-height:1.2!important;margin:10px 0 6px}
+  .mega-description{font-size:12px;line-height:1.4;margin-bottom:9px}
+  .mega-group>div a.mega-link{font-size:13px;line-height:1.35;padding:3px 0}
+}
+
+/* Site scrollbar: restrained blue/cyan treatment on the same palette as the UI. */
+html{
+  scrollbar-color:var(--blue) var(--pale);
+  scrollbar-width:thin;
+}
+html::-webkit-scrollbar,.mega-menu::-webkit-scrollbar{width:12px}
+html::-webkit-scrollbar-track,.mega-menu::-webkit-scrollbar-track{background:#e7f2f7}
+html::-webkit-scrollbar-thumb,.mega-menu::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,var(--cyan),var(--blue));
+  border:3px solid #e7f2f7;
+  border-radius:999px;
+}
+html::-webkit-scrollbar-thumb:hover,.mega-menu::-webkit-scrollbar-thumb:hover{background:var(--blue)}
+
 /* Desktop type scale: give common monitor widths a little more readable density.
    These rules intentionally start above the mobile/tablet breakpoint so the
    phone layout keeps its existing typography and wrapping. */
