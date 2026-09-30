@@ -463,6 +463,24 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
   .mobile-nav>details[open]>summary{background:var(--pale);color:var(--navy)}
   .mobile-nav> a.mobile-home{background:var(--pale);color:var(--navy);border-top:1px solid #b9ddea}
   .mobile-nav> a.mobile-home:hover,.mobile-nav> a.mobile-home:focus-visible{background:var(--pale);color:var(--navy)}
+  .mobile-nav> a.mobile-home,
+  .mobile-nav> a[href="#/about"],
+  .mobile-nav> a[href="#/contacts"],
+  .mobile-nav>details>summary{
+    font-size:15px;
+    font-weight:800;
+  }
+  .mobile-nav>details>div{
+    background:var(--white);
+    padding-left:24px;
+    padding-right:24px;
+    box-sizing:border-box;
+  }
+  .mobile-nav>details>div>details>summary,
+  .mobile-nav>details>div>details .mobile-link{
+    padding-left:18px;
+    padding-right:18px;
+  }
   .mobile-nav> a[href="#/about"],.mobile-nav> a[href="#/contacts"]{
     background:var(--pale);
     border:0;
