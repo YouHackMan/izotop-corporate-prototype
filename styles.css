@@ -464,14 +464,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
   .mobile-nav> a.mobile-home{background:var(--pale);color:var(--navy);border-top:1px solid #b9ddea}
   .mobile-nav> a.mobile-home:hover,.mobile-nav> a.mobile-home:focus-visible{background:var(--pale);color:var(--navy)}
   .mobile-nav> a[href="#/about"],.mobile-nav> a[href="#/contacts"]{
-    background:var(--white);
-    border:1px solid var(--blue);
+    background:var(--pale);
+    border:0;
+    border-bottom:1px solid var(--line);
     color:var(--navy);
   }
   .mobile-nav> a[href="#/about"]:hover,.mobile-nav> a[href="#/about"]:focus-visible,
   .mobile-nav> a[href="#/contacts"]:hover,.mobile-nav> a[href="#/contacts"]:focus-visible{
     background:var(--pale);
-    color:var(--blue);
+    color:var(--navy);
   }
 }
 
