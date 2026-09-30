@@ -155,7 +155,7 @@
     const addressLink=document.querySelector('.topbar-right a:last-child');
     if(addressLink){addressLink.textContent=address;addressLink.href=mapLink;addressLink.target='_blank';addressLink.rel='noreferrer';addressLink.removeAttribute('title')}
     const heroMark=document.querySelector('.hero-index > span');
-    if(heroMark&&(path==='/about'||path==='/contacts'))heroMark.textContent=path==='/about'?'ОК':'КТ';
+    if(heroMark&&(path==='/about'||path==='/contacts'))heroMark.textContent=path==='/about'?'ОК':'РК';
     if(path==='/')document.querySelectorAll('.hero-proof').forEach(node=>{if(node.textContent.includes('Москва и работа по России'))node.lastChild.textContent='По всей России'});
     document.querySelectorAll('.partner-mark').forEach(mark=>{mark.replaceChildren();mark.setAttribute('role','img');mark.setAttribute('aria-label','Место для логотипа')});
     if(path==='/design'){
