@@ -447,6 +447,34 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
   .hero-proof:last-child{border-bottom:0}
 }
 
+/* Mobile navigation states: collapsed services, animated disclosure icons,
+   and quieter outlined company/contact links. */
+@media(max-width:850px){
+  .mobile-nav>details>summary>span,
+  .mobile-nav>details>div>details>summary>span{
+    display:inline-block;
+    transform-origin:center;
+    transition:transform .28s cubic-bezier(.22,.61,.36,1),color .2s ease;
+  }
+  .mobile-nav>details>summary>span{font-size:18px;line-height:1}
+  .mobile-nav>details[open]>summary>span{transform:rotate(45deg)}
+  .mobile-nav>details>div>details[open]>summary>span{transform:rotate(90deg)}
+  .mobile-nav>details>summary{background:var(--pale);color:var(--navy)}
+  .mobile-nav>details[open]>summary{background:var(--pale);color:var(--navy)}
+  .mobile-nav> a.mobile-home{background:var(--pale);color:var(--navy);border-top:1px solid #b9ddea}
+  .mobile-nav> a.mobile-home:hover,.mobile-nav> a.mobile-home:focus-visible{background:var(--pale);color:var(--navy)}
+  .mobile-nav> a[href="#/about"],.mobile-nav> a[href="#/contacts"]{
+    background:var(--white);
+    border:1px solid var(--blue);
+    color:var(--navy);
+  }
+  .mobile-nav> a[href="#/about"]:hover,.mobile-nav> a[href="#/about"]:focus-visible,
+  .mobile-nav> a[href="#/contacts"]:hover,.mobile-nav> a[href="#/contacts"]:focus-visible{
+    background:var(--pale);
+    color:var(--blue);
+  }
+}
+
 /* Focused refinement pass: contact map, stable route geometry, calmer placeholders and hover states. */
 .brand-text>strong{display:block;font-size:20px;letter-spacing:.01em;transform:scaleX(1.1);transform-origin:left center;white-space:nowrap}
 .brand-text small{letter-spacing:.2em}
